@@ -4,7 +4,7 @@ job('NodeJS Docker example tassos') {
         git('git://github.com/wardviaene/docker-demo.git') {  node -> 
         // github('account/repo', 'ssh')
         // credentials('github')
-                    node / gitConfigName('DSL User')
+            node / gitConfigName('DSL User')
             node / gitConfigEmail('tasosostsaxur@yahoo.com')
         }
     }
