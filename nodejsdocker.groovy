@@ -1,11 +1,8 @@
 job('NodeJS Docker example tassos') {
     scm {
-        // git('git://github.com/tasostsaxur/thecode.git') {  node -> // is hudson.plugins.git.GitSCM
-        git('git://github.com/wardviaene/docker-demo.git') {  node -> 
-        // github('account/repo', 'ssh')
-        // credentials('github')
+        git('git://github.com/wardviaene/docker-demo.git') {  node -> // is hudson.plugins.git.GitSCM
             node / gitConfigName('DSL User')
-            node / gitConfigEmail('tasosostsaxur@yahoo.com')
+            node / gitConfigEmail('jenkins-dsl@newtech.academy')
         }
     }
     triggers {
@@ -15,15 +12,15 @@ job('NodeJS Docker example tassos') {
         nodejs('nodejs') // this is the name of the NodeJS installation in 
                          // Manage Jenkins -> Configure Tools -> NodeJS Installations -> Name
     }
-    steps {							// we don't have  the 'shell command' to do 'npm install' anymore
-        dockerBuildAndPublish {     // cloudbees plugin command (v1.2+ required by JobDSL)
+    steps {
+        dockerBuildAndPublish {
             repositoryName('tasostsaxur/docker-nodejs-demo')
-            tag('${GIT_REVISION,length=9}') 	// ! every new container version (when we commit on github) will be the same as the git version
-            registryCredentials('dockerhub')	// ! will create credentials with dockerhub as ID later
-            forcePull(false)					// from the job dsl API page for docker
-            forceTag(false)						// from the job dsl API page for docker
-            createFingerprints(false)			// from the job dsl API page for docker
-            skipDecorate()						// from the job dsl API page for docker
+            tag('${GIT_REVISION,length=9}')
+            registryCredentials('dockerhub')
+            forcePull(false)
+            forceTag(false)
+            createFingerprints(false)
+            skipDecorate()
         }
     }
 }
